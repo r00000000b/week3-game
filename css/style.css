@@ -1,0 +1,8 @@
+#redbox {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 25px;
+  height: 25px;
+  background: red;
+}
