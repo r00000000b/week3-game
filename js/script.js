@@ -5,10 +5,13 @@ var key_up = false;
 var key_down = false;
 var key_right = false;
 var key_left = false;
+var bod = document.getElementById('bod');
+var gameWindowWidth = bod.offsetWidth;
+var gameWindowHeight = bod.offsetHeight;
 
-var redbox = document.getElementById('redbox');
-redbox.style.top = "100px";
-redbox.style.left = "100px";
+var player = document.getElementById('player');
+player.style.top = "100px";
+player.style.left = "100px";
 
 /*
  *  Keyup
@@ -18,23 +21,23 @@ document.addEventListener('keyup', function(event){
   var keyName = event.key;
 
   switch(keyName) {
-    case "ArrowRight":
+    case "d":
         key_right = false;
         break;
-    case "ArrowLeft":
+    case "a":
         key_left = false;
         break;
-    case "ArrowUp":
+    case "w":
         key_up = false;
         break;
-    case "ArrowDown":
+    case "s":
         key_down = false;
         break;
     default:
         break;
   }
 
-  console.log("Key down" + keyName);
+  console.log("Key down " + keyName);
 
 });
 
@@ -47,23 +50,23 @@ document.addEventListener('keydown', function(event){
   var keyName = event.key;
 
   switch(keyName) {
-    case "ArrowRight":
+    case "d":
         key_right = true;
         break;
-    case "ArrowLeft":
+    case "a":
         key_left = true;
         break;
-    case "ArrowUp":
+    case "w":
         key_up = true;
         break;
-    case "ArrowDown":
+    case "s":
         key_down = true;
         break;
     default:
         break;
   }
 
-  console.log("Key up" + keyName);
+  console.log("Key up " + keyName);
 
 });
 
@@ -73,22 +76,22 @@ document.addEventListener('keydown', function(event){
 function render(){
 
   if(key_up){
-    redbox.style.top = parseInt(redbox.style.top)-2+"px";
+    player.style.top = parseInt(player.style.top)-2+"px";
     console.log("move up");
   }
 
   if(key_down){
-    redbox.style.top = parseInt(redbox.style.top)+2+"px";
+    player.style.top = parseInt(player.style.top)+2+"px";
     console.log("move down");
   }
 
   if(key_left){
-    redbox.style.left = parseInt(redbox.style.left)-2+"px";
+    player.style.left = parseInt(player.style.left)-2+"px";
     console.log("move left");
   }
 
   if(key_right){
-    redbox.style.left = parseInt(redbox.style.left)+2+"px";
+    player.style.left = parseInt(player.style.left)+2+"px";
     console.log("move right");
   }
 
@@ -112,3 +115,4 @@ window.requestAnimFrame = (function(){
 
 /* notes to self
 look up html dom offset
+*/
