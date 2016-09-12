@@ -1,14 +1,22 @@
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
 var Game = function(){
-
   // Globals
-  var score = 0;
-  var frame = 0;
-  var p1 = document.getElementById('player');
-  var
-
-  // Sprites
+  var score            = 0;
+  var frame            = 0;
+  var player           = null;
+  var controls         = new Controls();
+  var bod              = document.getElementById('bod');
+  var gameWindowWidth  = bod.offsetWidth;
+  var gameWindowHeight = bod.offsetHeight;
   var enemies = [];
-  var player = null;
 
   /*
    *  Init
@@ -20,7 +28,7 @@ var Game = function(){
     // Create player
     player = new Player();
 
-    // Create emenies
+    // Create enemies
 
     // Reset score and player object
   }
@@ -30,27 +38,18 @@ var Game = function(){
    */
   var loop = function(){
     if(player != null){
-      player.render();
+      player.render(controls);
     }
   }
 
-  window.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-              window.setTimeout(callback, 1000 / 60);
-            };
-  })();
 
-
-  (function animloop(){
+  var animloop = function (){
     requestAnimFrame(animloop);
     loop();
-  })();
+  };
 
-  init();
-
-}
-
-var game = new Game();
+  this.start = function () {
+    init();
+    animloop();
+  };
+};
