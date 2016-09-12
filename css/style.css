@@ -5,10 +5,16 @@
   background: red;
 }
 
+.invisBullet {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+
 .bullet {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   background: blue;
 }
 
