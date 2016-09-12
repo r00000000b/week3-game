@@ -5,8 +5,8 @@ var Player = function() {
   var health   = 100;
   var godeMode = true;
   var position = {
-    x: 500,
-    y: 250,
+    x: ((bod.offsetWidth)/2),
+    y: ((bod.offsetHeight)/2),
     face: 90
   };
   var movementSpeed = 8;
@@ -65,50 +65,64 @@ var Player = function() {
 
     // bullet generation
     var newTime            = new Date().getTime();
-    var availbleBulletTime = currentTime + bulletCooldown;
-    if (controls.shootLeft && availbleBulletTime < newTime) {
-      var bullet = new Bullet(position.x, position.y, 'left');
+    var availableBulletTime = currentTime + bulletCooldown;
+    if (controls.shootLeft && availableBulletTime < newTime) {
+      var bullet = new Bullet(position.x, ((position.y)+20), 'left');
       bullets.push(bullet);
       currentTime = newTime;
     }
-    if (controls.shootUp && availbleBulletTime < newTime) {
-      var bullet = new Bullet(position.x, position.y, 'up');
+    if (controls.shootUp && availableBulletTime < newTime) {
+      var bullet = new Bullet(((position.x)+20), position.y, 'up');
       bullets.push(bullet);
       currentTime = newTime;
     }
-    if (controls.shootRight && availbleBulletTime < newTime) {
-      var bullet = new Bullet(position.x, position.y, 'right');
+    if (controls.shootRight && availableBulletTime < newTime) {
+      var bullet = new Bullet(((position.x)+40), ((position.y)+20), 'right');
       bullets.push(bullet);
       currentTime = newTime;
     }
-    if (controls.shootDown && availbleBulletTime < newTime) {
-      var bullet = new Bullet(position.x, position.y, 'down');
+    if (controls.shootDown && availableBulletTime < newTime) {
+      var bullet = new Bullet(((position.x)+20), ((position.y)+50), 'down');
       bullets.push(bullet);
       currentTime = newTime;
     }
 /* figure out combos
-    if (controls.shootUpLeft && availbleBulletTime < newTime) {
+    if (controls.shootUpLeft && availableBulletTime < newTime) {
       var bullet = new Bullet(position.x, position.y, 'upLeft');
       bullets.push(bullet);
       currentTime = newTime;
     }
-    if (controls.shootDownLeft && availbleBulletTime < newTime) {
+    if (controls.shootDownLeft && availableBulletTime < newTime) {
       var bullet = new Bullet(position.x, position.y, 'downLeft');
       bullets.push(bullet);
       currentTime = newTime;
     }
-    if (controls.shootUpRight && availbleBulletTime < newTime) {
+    if (controls.shootUpRight && availableBulletTime < newTime) {
       var bullet = new Bullet(position.x, position.y, 'upRight');
       bullets.push(bullet);
       currentTime = newTime;
     }
-    if (controls.shootDownRight && availbleBulletTime < newTime) {
+    if (controls.shootDownRight && availableBulletTime < newTime) {
       var bullet = new Bullet(position.x, position.y, 'downRight');
       bullets.push(bullet);
       currentTime = newTime;
     }
 */
 
+    /*bullet bounding box
+    if ((parseInt(this.element.style.top)) < 0){
+      this.removeElement();
+    }
+    if ((parseInt(this.element.style.top)) > (bod.offsetHeight-50)){
+      this.removeElement();
+    }
+    if ((parseInt(this.element.style.left)) < 0){
+      this.removeElement();
+    }
+    if ((parseInt(this.element.style.left)) > (bod.offsetWidth-50)){
+      this.removeElement();
+    }
+*/
     // bullet movement
     for (var i = 0; i < bullets.length; i++){
       bullets[i].render();

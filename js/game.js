@@ -30,6 +30,7 @@ var Game = function(){
 
     // Create enemies
 
+
     // Reset score and player object
   }
 
