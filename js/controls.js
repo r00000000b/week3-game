@@ -49,6 +49,20 @@ var Controls = function () {
       case "ArrowLeft":
           that.shootLeft = false;
           break;
+/* figure out a way for combinations
+      case ArrowLeft" && "ArrowUp:
+          that.shootUpLeft = false;
+          break;
+      case "ArrowLeft" && "ArrowDown":
+          that.shootDownLeft = false;
+          break;
+      case "ArrowLeft" && "ArrowUp":
+          that.shootUpLeft = false;
+          break;
+      case "ArrowLeft" && "ArrowDown":
+          that.shootDownLeft = false;
+          break;
+*/
       default:
           break;
     }
@@ -86,6 +100,20 @@ var Controls = function () {
       case "ArrowLeft":
           that.shootLeft = true;
           break;
+/* figure out combos
+      case "ArrowLeft" && "ArrowUp":
+          that.shootUpLeft = true;
+          break;
+      case ("ArrowLeft" && "ArrowDown"):
+          that.shootDownLeft = true;
+          break;
+      case "ArrowLeft" && "ArrowUp":
+          that.shootUpLeft = true;
+          break;
+      case "ArrowLeft" && "ArrowDown":
+          that.shootDownLeft = true;
+          break;
+*/
       default:
           break;
     }

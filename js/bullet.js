@@ -7,7 +7,7 @@ var Bullet = function(x, y, direction) {
     x: x,
     y: y
   };
-  var movementSpeed = 30;
+  var movementSpeed = 10;
 
 
   // Create the div that contains the bullet;
@@ -31,6 +31,24 @@ var Bullet = function(x, y, direction) {
     if (direction === "down") {
       position.y += movementSpeed;
     }
+/* combos
+    if (direction === "upLeft") {
+      position.x -= movementSpeed;
+      position.y -= movementSpeed;
+    }
+    if (direction === "downLeft") {
+      position.x -= movementSpeed;
+      position.y += movementSpeed;
+    }
+    if (direction === "upRight") {
+      position.x += movementSpeed;
+      position.y -= movementSpeed;
+    }
+    if (direction === "downRight") {
+      position.x += movementSpeed;
+      position.y += movementSpeed;
+    }
+*/
 
     this.element.style.top = position.y + 'px';
     this.element.style.left = position.x + 'px';
