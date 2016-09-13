@@ -52,7 +52,23 @@ var Bullet = function(x, y, direction) {
 
     this.element.style.top = position.y + 'px';
     this.element.style.left = position.x + 'px';
-  }
+  };
+
+  this.getElement = function () {
+    return element;
+  };
+
+  this.collision = function () {
+    // bullet boundaries
+    if (position.x < -10) {
+    }
+    if (position.x > (bod.offsetWidth)){
+    }
+    if (position.y < 0){
+    }
+    if (position.y > (bod.offsetHeight)){
+    }
+  };
 
   create();
 };

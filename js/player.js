@@ -15,6 +15,14 @@ var Player = function() {
   var currentTime    = new Date().getTime();
   var bullets        = [];
 
+  this.getPosition = function () {
+    return position;
+  }
+
+  this.getHealth = function () {
+    return health;
+  }
+
   // Create the div that contains the player;
   var create = function(){
     that.element = document.createElement('div');
@@ -31,6 +39,14 @@ var Player = function() {
 
   //   // implement die;
   // };
+
+  this.getBullets = function (index) {
+    if (index){
+      return bullets[index];
+    } else {
+      return bullets;
+    }
+  }
 
   this.render = function(controls){
     // movement
@@ -109,25 +125,42 @@ var Player = function() {
     }
 */
 
-    /*bullet bounding box
-    if ((parseInt(this.element.style.top)) < 0){
-      this.removeElement();
-    }
-    if ((parseInt(this.element.style.top)) > (bod.offsetHeight-50)){
-      this.removeElement();
-    }
-    if ((parseInt(this.element.style.left)) < 0){
-      this.removeElement();
-    }
-    if ((parseInt(this.element.style.left)) > (bod.offsetWidth-50)){
-      this.removeElement();
+  /* bullet boundaries
+    for (var i = 0; i < bullets.length; i++) {
+      if (position.x < -10) {
+      delete Player.bullets[i];
+      }
+      if (position.x > (bod.offsetWidth)){
+      delete bullets[i];
+      }
+      if (position.y < 0){
+      delete bullets[i];
+      }
+      if (position.y > (bod.offsetHeight)){
+      delete bullets[i];
+      }
     }
 */
-    // bullet movement
+    var bulletsToRemove = [];
+
     for (var i = 0; i < bullets.length; i++){
-      bullets[i].render();
+      bullets[i].render(); // bullet movement
+      var collided = bullets[i].collision();
+
+      if (collided) {
+        bulletsToRemove.push(i);
+      }
+    }
+
+    for (var i = 0; i < bulletsToRemove.length; i++){
+      var bIndex = bulletsToRemove[i];
+
+      bullets[bIndex].getElement.remove();
+      bullets.splice(bIndex, 1);
     }
   };
 
   create();
 };
+
+

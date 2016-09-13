@@ -17,6 +17,7 @@ var Game = function(){
   var gameWindowWidth  = bod.offsetWidth;
   var gameWindowHeight = bod.offsetHeight;
   var enemies = [];
+  var lastEnemySpawn = new Date().getTime();
 
   /*
    *  Init
@@ -29,7 +30,6 @@ var Game = function(){
     player = new Player();
 
     // Create enemies
-
 
     // Reset score and player object
   }

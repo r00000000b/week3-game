@@ -1,14 +1,72 @@
-var Enemy = function(id, x, y, location) {
+var Enemy = function(id, x, y, location, direction) {
   var that    = this;
   var element = null;
 
   var id = id;
   var location = location;
+  var direction = direction;
   var position  = {
     x: x,
     y: y
   };
   var movementSpeed = 5;
+
+  this.getPosition = function (x, y) {
+    return position(x, y);
+  }
+
+  this.getDirection = function () {
+    return direction;
+  }
+
+  //generate enemies
+  var generateEnemies = function(){
+    for (var i = 0; i < 10; i++) {
+      var randomNum = Math.random();
+      var newEnemy  = null;
+      if (randomNum < .24) {
+        newEnemy = new Enemy(randomNum, ((bod.offsetWidth)/2), -50, 'top');
+      }
+      if (randomNum > .24 < .49) {
+        newEnemy = new Enemy(randomNum, ((bod.offsetWidth) + 50), ((bod.offsetHeight)/2), 'right');
+      }
+      if (randomNum > .49 < .74) {
+        newEnemy = new Enemy(randomNum, ((bod.offsetWidth)/2), ((bod.offsetHeight) +50), 'bottom');
+      }
+      if (randomNum > .74 < .99) {
+        newEnemy = new Enemy(randomNum, -50, ((bod.offsetHeight)/2), 'left');
+      }
+      enemies.push(newEnemy);
+    };
+  };
+
+  for (var i = 0; i < enemies.length; i++) {
+    if ((enemy.position.y == Player.position.y) && (enemy.position.x > Player.position.x)) {
+      that.element.setAttribute('direction', 'right');
+    }
+    if ((enemy.position.y == Player.position.y) && (enemy.position.x > Player.position.x)) {
+      that.element.setAttribute('direction', 'left');
+    }
+    if ((enemy.position.y < Player.position.y) && (enemy.position.x == Player.position.x)) {
+      that.element.setAttribute('direction', 'up');
+    }
+    if ((enemy.position.y > Player.position.y) && (enemy.position.x == Player.position.x)) {
+      that.element.setAttribute('direction', 'down');
+    }
+    if ((enemy.position.y < Player.position.y) && (enemy.position.x < Player.position.x)) {
+      that.element.setAttribute('direction', 'upRight');
+    }
+    if ((enemy.position.y < Player.position.y) && (enemy.position.x > Player.position.x)) {
+      that.element.setAttribute('direction', 'upLeft');
+    }
+    if ((enemy.position.y > Player.position.y) && (enemy.position.x > Player.position.x)) {
+      that.element.setAttribute('direction', 'downLeft');
+    }
+    if ((enemy.position.y > Player.position.y) && (enemy.position.x < Player.position.x)) {
+      that.element.setAttribute('direction', 'downRight');
+    }
+    if ((enemy.position.x))
+  }
 
   // Create the div that contains the enemy;
   var create = function(){
@@ -19,28 +77,6 @@ var Enemy = function(id, x, y, location) {
   };
 
   this.render = function(){
-    var generateEnemies = function(){
-      for (var i = 0; i < 10; i++) {
-        var randomNum = Math.random();
-        if (randomNum < .24) {
-          var newEnemy = new Enemy(randomNum, ((bod.offsetWidth)/2), -50, 'top');
-          enemies.push(newEnemy);
-        }
-        if (randomNum > .24 < .49) {
-          var newEnemy = new Enemy(randomNum, ((bod.offsetHeight)/2), ((bod.offsetWidth) + 50), 'right');
-          enemies.push(newEnemy);
-        }
-        if (randomNum > .49 < .74) {
-          var newEnemy = new Enemy(randomNum, ((bod.offsetWidth)/2), ((bod.offsetHeight) +50), 'bottom');
-          enemies.push(newEnemy);
-        }
-        if (randomNum > .74 < .99) {
-          var newEnemy = new Enemy(randomNum, -50, ((bod.offsetHeight)/2), 'left');
-          enemies.push(newEnemy);
-        }
-      }
-    };
-
 
 
     if (direction === "left") {
@@ -55,6 +91,23 @@ var Enemy = function(id, x, y, location) {
     if (direction === "down") {
       position.y += movementSpeed;
     }
+    // combos
+    if (direction === "upLeft") {
+      position.x -= movementSpeed;
+      position.y -= movementSpeed;
+    }
+    if (direction === "downLeft") {
+      position.x -= movementSpeed;
+      position.y += movementSpeed;
+    }
+    if (direction === "upRight") {
+      position.x += movementSpeed;
+      position.y -= movementSpeed;
+    }
+    if (direction === "downRight") {
+      position.x += movementSpeed;
+      position.y += movementSpeed;
+    }
 
     this.element.style.top = position.y + 'px';
     this.element.style.left = position.x + 'px';
@@ -63,6 +116,6 @@ var Enemy = function(id, x, y, location) {
       bullets[i].render();
     }
   }
-
+  generateEnemies();
   create();
 };
