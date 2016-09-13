@@ -65,8 +65,7 @@ var Enemy = function(id, x, y, location, direction) {
     if ((enemy.position.y > Player.position.y) && (enemy.position.x < Player.position.x)) {
       that.element.setAttribute('direction', 'downRight');
     }
-    if ((enemy.position.x))
-  }
+  };
 
   // Create the div that contains the enemy;
   var create = function(){
