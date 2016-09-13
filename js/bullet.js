@@ -60,13 +60,17 @@ var Bullet = function(x, y, direction) {
 
   this.collision = function () {
     // bullet boundaries
-    if (position.x < -10) {
+    if ((parseInt(this.element.style.top)) < 0){
+      position.y = movementSpeed * 0;
     }
-    if (position.x > (bod.offsetWidth)){
+    if ((parseInt(this.element.style.top)) > (bod.offsetHeight-50)){
+      position.y = (bod.offsetHeight-50);
     }
-    if (position.y < 0){
+    if ((parseInt(this.element.style.left)) < 0){
+      position.x = movementSpeed * 0;
     }
-    if (position.y > (bod.offsetHeight)){
+    if ((parseInt(this.element.style.left)) > (bod.offsetWidth-50)){
+      position.x = (bod.offsetWidth-50);
     }
   };
 

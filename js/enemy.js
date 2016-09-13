@@ -1,9 +1,7 @@
-var Enemy = function(id, x, y, location, direction) {
+var Enemy = function(x, y, direction) {
   var that    = this;
   var element = null;
 
-  var id = id;
-  var location = location;
   var direction = direction;
   var position  = {
     x: x,
@@ -11,61 +9,13 @@ var Enemy = function(id, x, y, location, direction) {
   };
   var movementSpeed = 5;
 
-  this.getPosition = function (x, y) {
-    return position(x, y);
+  this.getPosition = function () {
+    return position();
   }
 
   this.getDirection = function () {
     return direction;
   }
-
-  //generate enemies
-  var generateEnemies = function(){
-    for (var i = 0; i < 10; i++) {
-      var randomNum = Math.random();
-      var newEnemy  = null;
-      if (randomNum < .24) {
-        newEnemy = new Enemy(randomNum, ((bod.offsetWidth)/2), -50, 'top');
-      }
-      if (randomNum > .24 < .49) {
-        newEnemy = new Enemy(randomNum, ((bod.offsetWidth) + 50), ((bod.offsetHeight)/2), 'right');
-      }
-      if (randomNum > .49 < .74) {
-        newEnemy = new Enemy(randomNum, ((bod.offsetWidth)/2), ((bod.offsetHeight) +50), 'bottom');
-      }
-      if (randomNum > .74 < .99) {
-        newEnemy = new Enemy(randomNum, -50, ((bod.offsetHeight)/2), 'left');
-      }
-      enemies.push(newEnemy);
-    };
-  };
-
-  for (var i = 0; i < enemies.length; i++) {
-    if ((enemy.position.y == Player.position.y) && (enemy.position.x > Player.position.x)) {
-      that.element.setAttribute('direction', 'right');
-    }
-    if ((enemy.position.y == Player.position.y) && (enemy.position.x > Player.position.x)) {
-      that.element.setAttribute('direction', 'left');
-    }
-    if ((enemy.position.y < Player.position.y) && (enemy.position.x == Player.position.x)) {
-      that.element.setAttribute('direction', 'up');
-    }
-    if ((enemy.position.y > Player.position.y) && (enemy.position.x == Player.position.x)) {
-      that.element.setAttribute('direction', 'down');
-    }
-    if ((enemy.position.y < Player.position.y) && (enemy.position.x < Player.position.x)) {
-      that.element.setAttribute('direction', 'upRight');
-    }
-    if ((enemy.position.y < Player.position.y) && (enemy.position.x > Player.position.x)) {
-      that.element.setAttribute('direction', 'upLeft');
-    }
-    if ((enemy.position.y > Player.position.y) && (enemy.position.x > Player.position.x)) {
-      that.element.setAttribute('direction', 'downLeft');
-    }
-    if ((enemy.position.y > Player.position.y) && (enemy.position.x < Player.position.x)) {
-      that.element.setAttribute('direction', 'downRight');
-    }
-  };
 
   // Create the div that contains the enemy;
   var create = function(){
@@ -77,7 +27,34 @@ var Enemy = function(id, x, y, location, direction) {
 
   this.render = function(){
 
+    /* gives enemy direction
+    if ((position.y == Player.getPosition.y) && (position.x > Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'right');
+    }
+    if ((position.y == Player.getPosition.y) && (position.x > Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'left');
+    }
+    if ((position.y < Player.getPosition.y) && (position.x == Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'up');
+    }
+    if ((position.y > Player.getPosition.y) && (position.x == Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'down');
+    }
+    if ((position.y < Player.getPosition.y) && (position.x < Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'upRight');
+    }
+    if ((position.y < Player.getPosition.y) && (position.x > Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'upLeft');
+    }
+    if ((position.y > Player.getPosition.y) && (position.x > Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'downLeft');
+    }
+    if ((position.y > Player.getPosition.y) && (position.x < Player.getPosition.x)) {
+      that.element.setAttribute('direction', 'downRight');
+    }
+    */
 
+    //moves enemy
     if (direction === "left") {
       position.x -= movementSpeed;
     }
@@ -110,11 +87,35 @@ var Enemy = function(id, x, y, location, direction) {
 
     this.element.style.top = position.y + 'px';
     this.element.style.left = position.x + 'px';
-
-    for (var i = 0; i < bullets.length; i++){
-      bullets[i].render();
-    }
   }
-  generateEnemies();
   create();
 };
+
+/* generate Enemies function
+
+var generateEnemies = function() {
+  if (enemyCounter < 100) {
+    var cooldown = (Math.random())*10000;
+    var newTime            = new Date().getTime();
+    var availableTime = currentTime + cooldown;
+    var randomNum = Math.random();
+    var newEnemy  = null;
+    if (availableTime < newTime) {
+      if (randomNum < .24) {
+        newEnemy = new Enemy(((bod.offsetWidth)/2), -50, 'top');
+      }
+      if (randomNum > .24 < .49) {
+        newEnemy = new Enemy(((bod.offsetWidth) + 50), ((bod.offsetHeight)/2), 'right');
+      }
+      if (randomNum > .49 < .74) {
+        newEnemy = new Enemy(((bod.offsetWidth)/2), ((bod.offsetHeight) +50), 'bottom');
+      }
+      if (randomNum > .74 < .99) {
+        newEnemy = new Enemy(-50, ((bod.offsetHeight)/2), 'left');
+      }
+      enemies.push(newEnemy);
+      enemyCounter++;
+    }
+  }
+};
+*/
