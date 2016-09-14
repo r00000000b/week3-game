@@ -67,11 +67,11 @@ var Bullet = function(x, y, direction) {
 
   this.borderCollision = function () {
     // bullet boundaries
-    if ((parseInt(element.style.top)) < 0){
+    if ((parseInt(element.style.top)) < 50){
       position.y = movementSpeed * 0;
       return true;
     }
-    if ((parseInt(element.style.top)) > (bod.offsetHeight-10)){
+    if ((parseInt(element.style.top)) > (bod.offsetHeight-50)){
       position.y = (bod.offsetHeight+50);
       return true;
     }

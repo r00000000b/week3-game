@@ -67,11 +67,11 @@ var Player = function(bod) {
       position.x += movementSpeed;
     }
     // bounding box
-    if ((parseInt(this.element.style.top)) < 0){
-      position.y = movementSpeed * 0;
+    if ((parseInt(this.element.style.top)) < 50){
+      position.y = 50;
     }
-    if ((parseInt(this.element.style.top)) > (bod.offsetHeight-50)){
-      position.y = (bod.offsetHeight-50);
+    if ((parseInt(this.element.style.top)) > (bod.offsetHeight-100)){
+      position.y = (bod.offsetHeight-100);
     }
     if ((parseInt(this.element.style.left)) < 0){
       position.x = movementSpeed * 0;

@@ -22,6 +22,19 @@
   <title>Smashed TV</title>
 </head>
 <body id="bod">
-  <div id="gameboard"></div>
+  <div id="hud" class="row">
+    <div id="score" class="col-xs-4 top">SCORE: 0</div>
+    <div id="health" class="col-xs-4 top">HEALTH: 100</div>
+    <div id="lives" class="col-xs-4 top">LIVES: 3</div>
+  </div>
+  <div id="footer">
+    <div id="start" class="col-xs-4 bottom"><a id="start" href="#">click to<br>START</a></div>
+    <div id="instructions" class="col-xs-4 bottom">
+      How to play: avoid green boxes.<br>
+      Keys: W = up, A = left, S = down, D = right<br>
+      Shoot with arrow keys
+    </div>
+    <div id="lives" class="col-xs-4 bottom"></div>
+  </div>
 </body>
 </html>

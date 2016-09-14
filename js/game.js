@@ -21,16 +21,17 @@ var Game = function(){
   var lastEnemySpawn     = null;
   var enemyCooldownRange = 1000;
   var nextEnemyCooldown  = null;
+  var scoreboard         = document.getElementById("score");
 
   var generateEnemies = function() {
     var newEnemy  = null;
     var randomNum = Math.random();
     if (randomNum <= .25) {
-      newEnemy = new Enemy((bod.offsetWidth)/2, -50);
+      newEnemy = new Enemy((bod.offsetWidth)/2, +50);
     } else if (randomNum <= .50) {
       newEnemy = new Enemy((bod.offsetWidth) + 50, (bod.offsetHeight)/2);
     } else if (randomNum <= .75) {
-      newEnemy = new Enemy((bod.offsetWidth)/2, (bod.offsetHeight) +50);
+      newEnemy = new Enemy((bod.offsetWidth)/2, (bod.offsetHeight) -100);
     } else if (randomNum <= 1) {
       newEnemy = new Enemy(-50, (bod.offsetHeight)/2);
     }
@@ -60,7 +61,7 @@ var Game = function(){
 
     //enemy generation
     var newTime = new Date().getTime();
-    if (enemyCounter < 1 && lastEnemySpawn + nextEnemyCooldown < newTime) {
+    if (enemyCounter < 5 && lastEnemySpawn + nextEnemyCooldown < newTime) {
       nextEnemyCooldown = Math.random() * enemyCooldownRange;
       lastEnemySpawn    = newTime;
       generateEnemies();
@@ -83,6 +84,8 @@ var Game = function(){
       var enemyCollided  = bullets[i].enemyCollision(enemies);
       if (enemyCollided.collided) {
         enemiesToRemove.push(enemyCollided.enemyIndex);
+        score = score + 10;
+        scoreboard.innerHTML = "SCORE: " + score;
       }
 
       // check if bullet have collided with border

@@ -26,3 +26,32 @@ html {
 #bod {
   min-height: 100%;
 }
+
+#hud {
+  width: 80%
+  margin: 0 auto;
+  height: 50px;
+  background: rgba(0,0,0,0.2);
+}
+
+#footer {
+  position: absolute;
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  background: rgba(0,0,0,0.2);
+}
+
+.top {
+  display: inline-block;
+  min-width: 33%;
+  text-align: center;
+  min-height: 100%;
+}
+
+.bottom {
+  display: inline-block;
+  min-width: 33%;
+  text-align: center;
+  min-height: 100%;
+}
