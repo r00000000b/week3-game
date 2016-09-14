@@ -9,7 +9,6 @@ var Bullet = function(x, y, direction) {
   };
   var movementSpeed = 10;
 
-
   // Create the div that contains the bullet;
   var create = function(){
     element = document.createElement('div');
@@ -54,17 +53,21 @@ var Bullet = function(x, y, direction) {
     element.style.left = position.x + 'px';
   };
 
+  this.getPosition = function () {
+    return position;
+  }
+
   this.getElement = function () {
     return element;
   };
 
-  this.collision = function () {
+  this.borderCollision = function () {
     // bullet boundaries
     if ((parseInt(element.style.top)) < 0){
       position.y = movementSpeed * 0;
       return true;
     }
-    if ((parseInt(element.style.top)) > (bod.offsetHeight-50)){
+    if ((parseInt(element.style.top)) > (bod.offsetHeight-10)){
       position.y = (bod.offsetHeight+50);
       return true;
     }
@@ -72,10 +75,23 @@ var Bullet = function(x, y, direction) {
       position.x = movementSpeed * 0;
       return true;
     }
-    if ((parseInt(element.style.left)) > (bod.offsetWidth-50)){
+    if ((parseInt(element.style.left)) > (bod.offsetWidth-10)){
       position.x = (bod.offsetWidth+50);
       return true;
     }
+  };
+
+  this.enemyCollision = function (enemies) {
+    for (var i = 0; i < enemies.length; i++) {
+      var enemy = enemies[i];
+      var enemyPos = enemy.getPosition();
+
+
+      return {collided: true, enemyIndex: i}; // put this in the collision
+
+    }
+
+    return {collided: false}
   };
 
   create();

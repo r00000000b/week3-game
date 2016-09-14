@@ -8,15 +8,19 @@ var Enemy = function(x, y) {
   var movementSpeed = 5;
 
   this.getPosition = function () {
-    return position();
+    return position;
   }
 
   // Create the div that contains the enemy;
   var create = function(){
-    that.element = document.createElement('div');
-    that.element.setAttribute('class','enemy');
-    that.element.setAttribute('style', 'left: '+ position.x +'px; top: ' + position.y +'px');
-    document.getElementsByTagName('body')[0].appendChild(that.element);
+    element = document.createElement('div');
+    element.setAttribute('class','enemy');
+    element.setAttribute('style', 'left: '+ position.x +'px; top: ' + position.y +'px');
+    document.getElementsByTagName('body')[0].appendChild(element);
+  };
+
+  this.getElement = function () {
+    return element;
   };
 
   this.render = function(playerPos){
@@ -32,8 +36,8 @@ var Enemy = function(x, y) {
       position.x -= movementSpeed;
     }
 
-    this.element.style.top = position.y + 'px';
-    this.element.style.left = position.x + 'px';
+    element.style.top = position.y + 'px';
+    element.style.left = position.x + 'px';
   }
 
   create();

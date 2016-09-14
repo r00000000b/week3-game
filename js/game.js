@@ -42,8 +42,6 @@ var Game = function(){
    *  Init
    */
   var init = function(){
-    // Create world
-
     // Create player
     player = new Player(bod);
 
@@ -60,28 +58,9 @@ var Game = function(){
       player.render(controls);
     }
 
-    // Bullet movement and check collision
-    var bulletsToRemove = [];
-    var bullets         = player.getBullets();
-    for (var i = 0; i < bullets.length; i++){
-      bullets[i].render(); // bullet movement
-      var collided = bullets[i].collision();
-
-      if (collided) {
-        bulletsToRemove.push(i);
-      }
-    }
-
-    // Bullet removal
-    for (var i = 0; i < bulletsToRemove.length; i++){
-      var bIndex = bulletsToRemove[i];
-      bullets[bIndex].getElement().remove();
-      bullets.splice(bIndex, 1);
-    }
-
     //enemy generation
     var newTime = new Date().getTime();
-    if (enemyCounter < 100 && lastEnemySpawn + nextEnemyCooldown < newTime) {
+    if (enemyCounter < 1 && lastEnemySpawn + nextEnemyCooldown < newTime) {
       nextEnemyCooldown = Math.random() * enemyCooldownRange;
       lastEnemySpawn    = newTime;
       generateEnemies();
@@ -93,7 +72,41 @@ var Game = function(){
       enemies[i].render(playerPos);
     }
 
-  }
+    //bullet render & border collision & enemy collision
+    var bulletsToRemove = [];
+    var enemiesToRemove = [];
+    var bullets         = player.getBullets();
+    for (var i = 0; i < bullets.length; i++){
+      bullets[i].render();
+
+      // check if bullet have collided with enemies
+      var enemyCollided  = bullets[i].enemyCollision(enemies);
+      if (enemyCollided.collided) {
+        enemiesToRemove.push(enemyCollided.enemyIndex);
+      }
+
+      // check if bullet have collided with border
+      var borderCollided = bullets[i].borderCollision();
+      if (borderCollided || enemyCollided.collided) {
+        bulletsToRemove.push(i);
+      }
+    }
+
+    // Enemy removal
+    for (var i = 0; i < enemiesToRemove.length; i++){
+      var eIndex = enemiesToRemove[i];
+      enemies[eIndex].getElement().remove();
+      enemies.splice(eIndex, 1);
+      enemyCounter--;
+    }
+
+    // Bullet removal
+    for (var i = 0; i < bulletsToRemove.length; i++){
+      var bIndex = bulletsToRemove[i];
+      bullets[bIndex].getElement().remove();
+      bullets.splice(bIndex, 1);
+    }
+  };
 
   var animloop = function (){
     requestAnimFrame(animloop);
