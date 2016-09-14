@@ -15,6 +15,10 @@ var Enemy = function(x, y) {
     return position;
   }
 
+  this.getArea = function () {
+    return area;
+  }
+
   // Create the div that contains the enemy;
   var create = function(){
     element = document.createElement('div');

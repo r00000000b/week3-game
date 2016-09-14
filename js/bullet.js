@@ -89,14 +89,18 @@ var Bullet = function(x, y, direction) {
     for (var i = 0; i < enemies.length; i++) {
       var enemy = enemies[i];
       var enemyPos = enemy.getPosition();
+      var enemyArea = enemy.getArea();
+      var collided = null;
 
-
-      return {collided: true, enemyIndex: i}; // put this in the collision
-
+      if (enemyPos.x < position.x + area.width &&
+          enemyPos.x + enemyArea.width > position.x &&
+          enemyPos.y < position.y + area.height &&
+          enemyArea.height + enemyPos.y > position.y) {
+        return {collided: true, enemyIndex: i};
+      }
+      return {collided: false}
     }
-
-    return {collided: false}
-  };
+    }
 
   create();
 };
