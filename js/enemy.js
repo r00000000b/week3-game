@@ -1,8 +1,6 @@
-var Enemy = function(x, y, direction) {
+var Enemy = function(x, y) {
   var that    = this;
   var element = null;
-
-  var direction = direction;
   var position  = {
     x: x,
     y: y
@@ -13,10 +11,6 @@ var Enemy = function(x, y, direction) {
     return position();
   }
 
-  this.getDirection = function () {
-    return direction;
-  }
-
   // Create the div that contains the enemy;
   var create = function(){
     that.element = document.createElement('div');
@@ -25,69 +19,23 @@ var Enemy = function(x, y, direction) {
     document.getElementsByTagName('body')[0].appendChild(that.element);
   };
 
-  this.render = function(){
+  this.render = function(playerPos){
+    if (position.y < playerPos.y) {
+      position.y += movementSpeed;
+    } else if (position.y > playerPos.y) {
+      position.y -= movementSpeed;
+    }
 
-    /* gives enemy direction
-    if ((position.y == Player.getPosition.y) && (position.x > Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'right');
-    }
-    if ((position.y == Player.getPosition.y) && (position.x > Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'left');
-    }
-    if ((position.y < Player.getPosition.y) && (position.x == Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'up');
-    }
-    if ((position.y > Player.getPosition.y) && (position.x == Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'down');
-    }
-    if ((position.y < Player.getPosition.y) && (position.x < Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'upRight');
-    }
-    if ((position.y < Player.getPosition.y) && (position.x > Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'upLeft');
-    }
-    if ((position.y > Player.getPosition.y) && (position.x > Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'downLeft');
-    }
-    if ((position.y > Player.getPosition.y) && (position.x < Player.getPosition.x)) {
-      that.element.setAttribute('direction', 'downRight');
-    }
-    */
-
-    //moves enemy
-    if (direction === "left") {
-      position.x -= movementSpeed;
-    }
-    if (direction === "right") {
+    if (position.x < playerPos.x) {
       position.x += movementSpeed;
-    }
-    if (direction === "up") {
-      position.y -= movementSpeed;
-    }
-    if (direction === "down") {
-      position.y += movementSpeed;
-    }
-    // combos
-    if (direction === "upLeft") {
+    } else if (position.x > playerPos.x) {
       position.x -= movementSpeed;
-      position.y -= movementSpeed;
-    }
-    if (direction === "downLeft") {
-      position.x -= movementSpeed;
-      position.y += movementSpeed;
-    }
-    if (direction === "upRight") {
-      position.x += movementSpeed;
-      position.y -= movementSpeed;
-    }
-    if (direction === "downRight") {
-      position.x += movementSpeed;
-      position.y += movementSpeed;
     }
 
     this.element.style.top = position.y + 'px';
     this.element.style.left = position.x + 'px';
   }
+
   create();
 };
 

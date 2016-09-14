@@ -16,53 +16,41 @@ var Game = function(){
   var bod              = document.getElementById('bod');
   var gameWindowWidth  = bod.offsetWidth;
   var gameWindowHeight = bod.offsetHeight;
-  var enemies = [];
-  var lastEnemySpawn = new Date().getTime();
-  var cooldown = 200;
-  var currentTime    = new Date().getTime();
-  var enemies = [];
-  var enemyCounter = 0;
+  var enemies            = [];
+  var enemyCounter       = 0;
+  var lastEnemySpawn     = null;
+  var enemyCooldownRange = 1000;
+  var nextEnemyCooldown  = null;
 
   var generateEnemies = function() {
-    if (enemyCounter < 100) {
-      var cooldown = (Math.random())*500000;
-      var newTime            = new Date().getTime();
-      var availableTime = currentTime + cooldown;
-      var randomNum = Math.random();
-      var newEnemy  = null;
-      if (availableTime < newTime) {
-        if (randomNum < .24) {
-          newEnemy = new Enemy(((bod.offsetWidth)/2), -50, 'top');
-        }
-        if (randomNum > .24 < .49) {
-          newEnemy = new Enemy(((bod.offsetWidth) + 50), ((bod.offsetHeight)/2), 'right');
-        }
-        if (randomNum > .49 < .74) {
-          newEnemy = new Enemy(((bod.offsetWidth)/2), ((bod.offsetHeight) +50), 'bottom');
-        }
-        if (randomNum > .74 < .99) {
-          newEnemy = new Enemy(-50, ((bod.offsetHeight)/2), 'left');
-        }
-        enemies.push(newEnemy);
-        enemyCounter++;
-      }
+    var newEnemy  = null;
+    var randomNum = Math.random();
+    if (randomNum <= .25) {
+      newEnemy = new Enemy((bod.offsetWidth)/2, -50);
+    } else if (randomNum <= .50) {
+      newEnemy = new Enemy((bod.offsetWidth) + 50, (bod.offsetHeight)/2);
+    } else if (randomNum <= .75) {
+      newEnemy = new Enemy((bod.offsetWidth)/2, (bod.offsetHeight) +50);
+    } else if (randomNum <= 1) {
+      newEnemy = new Enemy(-50, (bod.offsetHeight)/2);
     }
+    enemies.push(newEnemy);
+    enemyCounter++;
   };
 
   /*
    *  Init
    */
   var init = function(){
-
     // Create world
 
     // Create player
-    player = new Player();
-
-    // Create enemies
+    player = new Player(bod);
 
     // Reset score and player object
-  }
+    lastEnemySpawn    = new Date().getTime();
+    nextEnemyCooldown = Math.random() * enemyCooldownRange;
+  };
 
   /*
    *  Game loop
@@ -71,23 +59,49 @@ var Game = function(){
     if(player != null){
       player.render(controls);
     }
+
+    // Bullet movement and check collision
+    var bulletsToRemove = [];
+    var bullets         = player.getBullets();
+    for (var i = 0; i < bullets.length; i++){
+      bullets[i].render(); // bullet movement
+      var collided = bullets[i].collision();
+
+      if (collided) {
+        bulletsToRemove.push(i);
+      }
+    }
+
+    // Bullet removal
+    for (var i = 0; i < bulletsToRemove.length; i++){
+      var bIndex = bulletsToRemove[i];
+      bullets[bIndex].getElement().remove();
+      bullets.splice(bIndex, 1);
+    }
+
     //enemy generation
-    generateEnemies();
+    var newTime = new Date().getTime();
+    if (enemyCounter < 100 && lastEnemySpawn + nextEnemyCooldown < newTime) {
+      nextEnemyCooldown = Math.random() * enemyCooldownRange;
+      lastEnemySpawn    = newTime;
+      generateEnemies();
+    }
 
     //enemy render engine
+    var playerPos = player.getPosition();
     for (var i = 0; i < enemies.length; i++){
-      enemies[i].render();
+      enemies[i].render(playerPos);
     }
+
   }
 
+  var animloop = function (){
+    requestAnimFrame(animloop);
+    loop();
+  };
 
-    var animloop = function (){
-      requestAnimFrame(animloop);
-      loop();
-    };
-
-    this.start = function () {
-      init();
-      animloop();
-    };
+  this.start = function () {
+    init();
+    animloop();
+  };
 };

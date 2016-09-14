@@ -1,12 +1,12 @@
-var Player = function() {
+var Player = function(bod) {
   var that    = this;
   var element = null;
 
   var health   = 100;
   var godeMode = true;
   var position = {
-    x: ((bod.offsetWidth)/2),
-    y: ((bod.offsetHeight)/2),
+    x: (bod.offsetWidth)/2,
+    y: (bod.offsetHeight)/2,
     face: 90
   };
   var movementSpeed = 8;
@@ -80,7 +80,7 @@ var Player = function() {
     this.element.style.left = position.x + 'px';
 
     // bullet generation
-    var newTime            = new Date().getTime();
+    var newTime             = new Date().getTime();
     var availableBulletTime = currentTime + bulletCooldown;
     if (controls.shootLeft && availableBulletTime < newTime) {
       var bullet = new Bullet(position.x, ((position.y)+20), 'left');
@@ -102,6 +102,12 @@ var Player = function() {
       bullets.push(bullet);
       currentTime = newTime;
     }
+  };
+
+  create();
+};
+
+
 /* figure out combos
     if (controls.shootUpLeft && availableBulletTime < newTime) {
       var bullet = new Bullet(position.x, position.y, 'upLeft');
@@ -141,26 +147,3 @@ var Player = function() {
       }
     }
 */
-    var bulletsToRemove = [];
-
-    for (var i = 0; i < bullets.length; i++){
-      bullets[i].render(); // bullet movement
-      var collided = bullets[i].collision();
-
-      if (collided) {
-        bulletsToRemove.push(i);
-      }
-    }
-
-    for (var i = 0; i < bulletsToRemove.length; i++){
-      var bIndex = bulletsToRemove[i];
-
-      bullets[bIndex].getElement.remove();
-      bullets.splice(bIndex, 1);
-    }
-  };
-
-  create();
-};
-
-

@@ -12,10 +12,10 @@ var Bullet = function(x, y, direction) {
 
   // Create the div that contains the bullet;
   var create = function(){
-    that.element = document.createElement('div');
-    that.element.setAttribute('class','bullet');
-    that.element.setAttribute('style', 'left: '+ position.x + 20 +'px; top: ' + position.y + 20 +'px');
-    document.getElementsByTagName('body')[0].appendChild(that.element);
+    element = document.createElement('div');
+    element.setAttribute('class','bullet');
+    element.setAttribute('style', 'left: '+ position.x + 20 +'px; top: ' + position.y + 20 +'px');
+    document.getElementsByTagName('body')[0].appendChild(element);
   };
 
   this.render = function(){
@@ -50,8 +50,8 @@ var Bullet = function(x, y, direction) {
     }
 */
 
-    this.element.style.top = position.y + 'px';
-    this.element.style.left = position.x + 'px';
+    element.style.top = position.y + 'px';
+    element.style.left = position.x + 'px';
   };
 
   this.getElement = function () {
@@ -60,17 +60,21 @@ var Bullet = function(x, y, direction) {
 
   this.collision = function () {
     // bullet boundaries
-    if ((parseInt(this.element.style.top)) < 0){
+    if ((parseInt(element.style.top)) < 0){
       position.y = movementSpeed * 0;
+      return true;
     }
-    if ((parseInt(this.element.style.top)) > (bod.offsetHeight-50)){
-      position.y = (bod.offsetHeight-50);
+    if ((parseInt(element.style.top)) > (bod.offsetHeight-50)){
+      position.y = (bod.offsetHeight+50);
+      return true;
     }
-    if ((parseInt(this.element.style.left)) < 0){
+    if ((parseInt(element.style.left)) < 0){
       position.x = movementSpeed * 0;
+      return true;
     }
-    if ((parseInt(this.element.style.left)) > (bod.offsetWidth-50)){
-      position.x = (bod.offsetWidth-50);
+    if ((parseInt(element.style.left)) > (bod.offsetWidth-50)){
+      position.x = (bod.offsetWidth+50);
+      return true;
     }
   };
 
