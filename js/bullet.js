@@ -8,6 +8,10 @@ var Bullet = function(x, y, direction) {
     y: y
   };
   var movementSpeed = 10;
+  var area = {
+    height: 10,
+    width: 10
+  };
 
   // Create the div that contains the bullet;
   var create = function(){

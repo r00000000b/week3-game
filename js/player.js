@@ -10,6 +10,10 @@ var Player = function(bod) {
     face: 90
   };
   var movementSpeed = 8;
+  var area = {
+    height: 10,
+    width: 10
+  };
 
   var bulletCooldown = 200;
   var currentTime    = new Date().getTime();

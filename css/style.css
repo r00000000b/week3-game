@@ -7,9 +7,9 @@
 
 .enemy {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  background: green;
+  width: 32px;
+  height: 32px;
+  background-image: url("../images/enemy.gif");
 }
 
 .bullet {

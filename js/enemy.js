@@ -6,6 +6,10 @@ var Enemy = function(x, y) {
     y: y
   };
   var movementSpeed = 5;
+  var area = {
+    height: 50,
+    width: 50
+  };
 
   this.getPosition = function () {
     return position;
