@@ -48,6 +48,23 @@ var Enemy = function(x, y) {
     element.style.left = position.x + 'px';
   }
 
+  this.playerCollision = function (player, enemies) {
+    for (var i = 0; i < enemies.length; i++) {
+      var playerPos = player.getPosition();
+      var playerArea = player.getArea();
+      var enemy = enemies[i];
+      var attacked = null;
+
+      if (playerPos.x < position.x + area.width &&
+          playerPos.x + playerArea.width > position.x &&
+          playerPos.y < position.y + area.height &&
+          playerArea.height + playerPos.y > position.y) {
+        return {attacked: true, enemyIndex: i};
+      }
+      return {attacked: false}
+    }
+    }
+
   create();
 };
 

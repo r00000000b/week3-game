@@ -106,25 +106,31 @@ var Game = function(){
       enemyCounter--;
     }
 
-    // // enemy to player collision
-    // var enemyPos = enemies.getPosition();
-    // var enemyArea = enemies.getArea();
-    // var playerArea = player.getArea();
-
-    // for (var i = 0; i < enemies.length; i++) {
-    //   if (playerPos.x < enemyPos.x + enemyArea.width &&
-    //       playerPos.x + playerArea.width > enemyPos.x &&
-    //       playerPos.y < enemyPos.y + enemyArea.height &&
-    //       playerArea.height + playerPos.y > enemyPos.y) {
-    //     enemiesToRemove.push(enemies[i]);
-    //   }
-    // }
-
     // Bullet removal
     for (var i = 0; i < bulletsToRemove.length; i++){
       var bIndex = bulletsToRemove[i];
       bullets[bIndex].getElement().remove();
       bullets.splice(bIndex, 1);
+    }
+
+    // player to enemy collision
+    for (var i = 0; i < enemies.length; i++){
+      // check if player has collided with enemies
+      var enemyAttacked  = enemies[i].playerCollision(player, enemies);
+      var lives = player.getLives(); //use in enemy removal
+      if (enemyAttacked.attacked) {
+        enemiesToRemove.push(enemyAttacked.enemyIndex);
+        score = score + 10;
+        scoreboard.innerHTML = score;
+      }
+    }
+
+    // Enemy removal after player collision
+    for (var i = 0; i < enemiesToRemove.length; i++){
+      var eIndex = enemiesToRemove[i];
+      enemies[eIndex].getElement().remove();
+      enemies.splice(eIndex, 1);
+      enemyCounter--;
     }
   };
 
