@@ -3,6 +3,7 @@ var Player = function(bod) {
   var element = null;
 
   var health   = 100;
+  var lives    = 3;
   var godeMode = true;
   var position = {
     x: (bod.offsetWidth)/2,
@@ -25,6 +26,14 @@ var Player = function(bod) {
 
   this.getHealth = function () {
     return health;
+  }
+
+  this.getArea = function() {
+    return area;
+  }
+
+  this.getLives = function() {
+    return lives;
   }
 
   // Create the div that contains the player;

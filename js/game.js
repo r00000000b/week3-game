@@ -21,7 +21,7 @@ var Game = function(){
   var lastEnemySpawn     = null;
   var enemyCooldownRange = 1000;
   var nextEnemyCooldown  = null;
-  var scoreboard         = document.getElementById("score");
+  var scoreboard         = document.getElementById("scoreNum");
 
   var generateEnemies = function() {
     var newEnemy  = null;
@@ -49,6 +49,9 @@ var Game = function(){
     // Reset score and player object
     lastEnemySpawn    = new Date().getTime();
     nextEnemyCooldown = Math.random() * enemyCooldownRange;
+    score = 0;
+    scoreboard.innerHTML = score;
+
   };
 
   /*
@@ -61,7 +64,7 @@ var Game = function(){
 
     //enemy generation
     var newTime = new Date().getTime();
-    if (enemyCounter < 5 && lastEnemySpawn + nextEnemyCooldown < newTime) {
+    if (enemyCounter < 10 && lastEnemySpawn + nextEnemyCooldown < newTime) {
       nextEnemyCooldown = Math.random() * enemyCooldownRange;
       lastEnemySpawn    = newTime;
       generateEnemies();
@@ -85,7 +88,7 @@ var Game = function(){
       if (enemyCollided.collided) {
         enemiesToRemove.push(enemyCollided.enemyIndex);
         score = score + 10;
-        scoreboard.innerHTML = "SCORE: " + score;
+        scoreboard.innerHTML = score;
       }
 
       // check if bullet have collided with border
@@ -102,6 +105,20 @@ var Game = function(){
       enemies.splice(eIndex, 1);
       enemyCounter--;
     }
+
+    // // enemy to player collision
+    // var enemyPos = enemies.getPosition();
+    // var enemyArea = enemies.getArea();
+    // var playerArea = player.getArea();
+
+    // for (var i = 0; i < enemies.length; i++) {
+    //   if (playerPos.x < enemyPos.x + enemyArea.width &&
+    //       playerPos.x + playerArea.width > enemyPos.x &&
+    //       playerPos.y < enemyPos.y + enemyArea.height &&
+    //       playerArea.height + playerPos.y > enemyPos.y) {
+    //     enemiesToRemove.push(enemies[i]);
+    //   }
+    // }
 
     // Bullet removal
     for (var i = 0; i < bulletsToRemove.length; i++){
