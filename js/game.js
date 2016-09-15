@@ -11,6 +11,8 @@ var Game = function(){
   // Globals
   var score            = 0;
   var frame            = 0;
+  var hp               = 100;
+  var lives            = 3;
   var player           = null;
   var controls         = new Controls();
   var bod              = document.getElementById('bod');
@@ -22,6 +24,8 @@ var Game = function(){
   var enemyCooldownRange = 1000;
   var nextEnemyCooldown  = null;
   var scoreboard         = document.getElementById("scoreNum");
+  var hpMeter            = document.getElementById("healhtNum");
+  var livesMeter         = document.getElementById("livesNum");
 
   var generateEnemies = function() {
     var newEnemy  = null;
@@ -64,7 +68,7 @@ var Game = function(){
 
     //enemy generation
     var newTime = new Date().getTime();
-    if (enemyCounter < 10 && lastEnemySpawn + nextEnemyCooldown < newTime) {
+    if (enemyCounter < 100 && lastEnemySpawn + nextEnemyCooldown < newTime) {
       nextEnemyCooldown = Math.random() * enemyCooldownRange;
       lastEnemySpawn    = newTime;
       generateEnemies();
@@ -117,11 +121,18 @@ var Game = function(){
     for (var i = 0; i < enemies.length; i++){
       // check if player has collided with enemies
       var enemyAttacked  = enemies[i].playerCollision(player, enemies);
-      var lives = player.getLives(); //use in enemy removal
       if (enemyAttacked.attacked) {
         enemiesToRemove.push(enemyAttacked.enemyIndex);
-        score = score + 10;
-        scoreboard.innerHTML = score;
+        if (hp > 0) {
+          hp = hp - 5;
+          hpMeter.innerHTML = hp;
+        } else if (hp == 0) {
+          lives = lives - 1;
+          hp = 100;
+          livesMeter.innerHTML = lives;
+        } else if (lives < 0){
+          window.alert("You LOSE!");
+        }
       }
     }
 
@@ -132,6 +143,7 @@ var Game = function(){
       enemies.splice(eIndex, 1);
       enemyCounter--;
     }
+
   };
 
   var animloop = function (){

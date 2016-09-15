@@ -2,8 +2,8 @@ var Player = function(bod) {
   var that    = this;
   var element = null;
 
-  var health   = 100;
-  var lives    = 3;
+  // var health   = 100;
+  // var lives    = 3;
   var godeMode = true;
   var position = {
     x: (bod.offsetWidth)/2,
@@ -24,17 +24,17 @@ var Player = function(bod) {
     return position;
   }
 
-  this.getHealth = function () {
-    return health;
-  }
+  // this.getHealth = function () {
+  //   return health;
+  // }
 
   this.getArea = function() {
     return area;
   }
 
-  this.getLives = function() {
-    return lives;
-  }
+  // this.getLives = function() {
+  //   return lives;
+  // }
 
   // Create the div that contains the player;
   var create = function(){
