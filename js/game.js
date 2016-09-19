@@ -126,12 +126,12 @@ var Game = function(){
         if (hp > 0) {
           hp = hp - 5;
           hpMeter.innerHTML = hp;
-        } else if (hp == 0) {
+        } else if (hp < 1) {
           lives = lives - 1;
           hp = 100;
           livesMeter.innerHTML = lives;
         } else if (lives < 0){
-          window.alert("You LOSE!");
+          alert("You LOSE!");
         }
       }
     }

@@ -2,14 +2,14 @@
   position: absolute;
   width: 50px;
   height: 50px;
-  background: red;
+  background: url(../images/playerAnim.gif);
 }
 
 .enemy {
   position: absolute;
   width: 50px;
   height: 50px;
-  background: green;
+  background: url(../images/enemyAnim.gif);
 }
 
 .bullet {
@@ -25,6 +25,8 @@ html {
 
 #bod {
   min-height: 100%;
+  background: url(../images/enemybackground.jpg) no-repeat center center fixed;
+  background-size: cover;
 }
 
 #hud {
